@@ -1,0 +1,55 @@
+/*更改字体*/
+@font-face {
+    font-family:'arzhu';
+    src:url('/font/227.TTF'); /* 修改成你的字体 */
+    font-display:swap
+}
+h1#site-title {
+    font-family:arzhu!important
+}
+span#subtitle {
+    font-family:arzhu!important
+}
+a#site-name {
+    font-family:arzhu!important
+}
+/*
+文章内容字体
+ */
+body{
+    font-family:arzhu!important
+}
+/**
+菜单和首页字体
+ */
+div#menus {
+    font-family:arzhu!important
+}
+a.article-title,
+a.blog-slider__title,
+a.categoryBar-list-link,
+h1.post-title {
+    font-family:arzhu!important
+}
+/**
+页脚颜色
+ */
+/*#footer {*/
+/*    background: rgba(154, 75, 33, 0.63);*/
+/*    color: #000;*/
+/*    border-top-right-radius: 20px;*/
+/*    border-top-left-radius: 20px;*/
+/*    backdrop-filter: saturate(100%) blur(5px)*/
+/*}*/
+
+/*#footer::before {*/
+/*    background: rgb(126, 122, 122)*/
+/*}*/
+
+/*#footer #footer-wrap {*/
+/*    color: var(--font-color)*/
+/*}*/
+
+/*#footer #footer-wrap a {*/
+/*    color: var(--font-color)*/
+/*}*/
