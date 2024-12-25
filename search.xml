@@ -4,6 +4,37 @@
   
     
     <entry>
+      <title>Spring容器初始化流程以及三级缓存原理</title>
+      <link href="/posts/f1980ec3.html"/>
+      <url>/posts/f1980ec3.html</url>
+      
+        <content type="html"><![CDATA[<h2 id="Sring容器启动流程">Sring容器启动流程</h2><ol><li>容器准备阶段<ol><li>获取一个默认的<code>DefaultListableBeanFactory</code> 的BeanFactory.</li><li>扫描注册一些内置的<code>BeanPostProcessor</code>,这些后置处理器是对容器的功能提供支持，比如<br><code>ApplicationContextAwareProcessor</code>，是为了确保其余处理器在执行的时候如果要获取上下文确保能获取到。</li><li>扫描注册<code>BeanFactoryPostProcessor</code>，<span class="bubble-content">扫描容器的后置处理器并且注册。</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#71a4e3;">BeanDefinitionRegistryPostProcessor就是一个容器后置处理器，能够修改Bean的定义信息</span></span></li><li>扫描和注册Bean的定义信息<code>BeanDefinition</code></li></ol></li><li>执行容器后置处理器<code>BeanFactoryPostProcessor</code><ol><li>执行普通的容器后置处理器</li><li>执行<code>BeanDefinitionRegistryPostProcessor</code>，修改bean的定义信息</li></ol></li><li><span class="bubble-content">实例化Bean</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#71a4e3;">Bean的后置处理器发挥作用</span></span><ol><li><span class="bubble-content">实例化之前会调用`InstantiationAwareBeanPostProcessor` 类型的处理器的 `postProcessBeforeInstantiation()` 方法</span><span class="bubble-notation"><span class="bubble-item" style="background-color:#71a4e3;">实现代理的时机</span></span><p>不过基本不会在这一步进行对象的代理，这个时候对象的属性还没赋值，可能还有自定义操作没有完成，得到的是半成品。</p></li><li><p>实例化Bean</p></li><li><p>实例化之前会调用<code>InstantiationAwareBeanPostProcessor</code> 类型的处理器的<code>postProcessAfterInstantiation()</code> 方法；</p><p>根据返回结果决定是否继续属性赋值。</p></li><li><p>在属性注入之前，执行<code>InstantiationAwareBeanPostProcessor</code> 接口中的方法<code>postProcessPropertyValues()</code> ，能够对属性进行操作</p></li></ol></li><li>属性赋值</li><li>执行部分特殊的<code>BeanPostProcessor</code>，例如<code>ApplicationContextAware</code>，会执行相应的方法。</li><li>初始化Bean<ol><li><p>初始化之前执行所有注册的 <code>BeanPostProcessor</code> 的 <code>postProcessBeforeInitialization()</code> 方法。<emp>大部分的后置处理器在这里执行，包括自定义的，内置的处理器在各个阶段都有执行。</emp></p></li><li><p>初始化Bean，执行初始化方法，如<code>init-method</code> 或通过 <code>@PostConstruct</code> 注解标注的方法。</p></li><li><p>初始化之后执行所有注册的 <code>BeanPostProcessor</code> 的 <code>postProcessAfterInitialization()</code> 方法。</p><emp>代理对象的创建一般是在这个时候创建的，这时候目标对象已经设置完成，可以代理</emp></li></ol></li><li>注册销毁方法</li><li>发布容器刷新完成事件</li></ol><h2 id="循环依赖以及缓存">循环依赖以及缓存</h2><h3 id="循环依赖">循环依赖</h3><h4 id="原因">原因</h4><p>例如，类 A 依赖类 B，同时类 B 又依赖类 A。在对象创建和依赖注入的过程中，如果不加以处理，就会陷入死循环。</p><h4 id="解决办法">解决办法</h4><p>spring引入了多级缓存机制，在实例化结束后就把对象放入到二级缓存，可以拿到这个不完全的对象来使用。</p><h4 id="存在问题">存在问题</h4><p>二级缓存中存放的是真正的目标对象，因为代理对象要在初始化之后才会创建，所以这时候只有目标对象，这个时候如果被代理的对象被注入的话，拿到的就是目标对象，代理功能就无法使用了。</p><h4 id="代理对象解决办法">代理对象解决办法</h4><p>使用三级缓存，在实例化对象之后会把一个对象工厂放入到三级缓存。<emp>三级缓存不仅仅是为了延迟实例化，它的另一个重要作用是处理 代理问题 和确保 完整初始化。</emp>工厂方法得到的Bean确保了完全初始化并且代理逻辑能够实现。然后<u>将代理对象放到二级缓存供别的对象注入。</u></p><div class="tag link"><a class="link-card" title="Spring框架的设计理念与设计模式分析" href="https://blog.csdn.net/cyl101816/article/details/73381938"><div class="left"><img src="/assets/coffee.png"/></div><div class="right"><p class="text">Spring框架的设计理念与设计模式分析</p><p class="url">https://blog.csdn.net/cyl101816/article/details/73381938</p></div></a></div>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发学习 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> spring </tag>
+            
+            <tag> Java </tag>
+            
+            <tag> 三级缓存 </tag>
+            
+            <tag> 循环依赖 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>NIO学习</title>
       <link href="/posts/9fcc49c7.html"/>
       <url>/posts/9fcc49c7.html</url>
