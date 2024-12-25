@@ -6,7 +6,7 @@
   <link href="https://gugubang.top/atom.xml" rel="self"/>
   
   <link href="https://gugubang.top/"/>
-  <updated>2024-12-25T06:54:30.568Z</updated>
+  <updated>2024-12-25T08:50:56.927Z</updated>
   <id>https://gugubang.top/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySQL现学现用</title>
+    <link href="https://gugubang.top/posts/d4b60b4.html"/>
+    <id>https://gugubang.top/posts/d4b60b4.html</id>
+    <published>2024-12-25T08:05:11.000Z</published>
+    <updated>2024-12-25T08:50:56.927Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="索引相关"><a href="#索引相关" class="headerlink" title="索引相关"></a>索引相关</h2><h3 id="优化原理"><a href="#优化原理" class="headerlink" title="优化原理"></a>优化原理</h3><p>创建索引的本质是为了减少数据库IO操作的次数，即磁盘读写次数。MySQL的引擎主要有两种方式：MyISAM和InnoDB，本质为两种最常用的两种表结构类型。在5.1版本之后，默认设置改为InnoDB，原因是：InnoDB支持事务、高并发（行级锁原因，同时操作多条数据，互不影响）、主外键等特性，更符合时代需求。</p><p>索引按性能来说，主要分成两大类：主键索引和辅助索引。其中，辅助索引主要有普通索引、唯一索引和联合索引等。我们常说的SQL语句优化中尽量不要使用*查询的原因是：一般情况下使用联合索引可以避免回表查询（即当：查询的字段类型&lt;=联合索引中的字段类型+主键时，一次查询就可以满足需求，不需要再根据主键去查询其他数据，专有名词称为：索引覆盖），但是，当字段一多联合索引的价值就大大削弱了。</p><p><strong>辅助索引中叶子节点只存有主键数据和辅助索引的字段。</strong></p><h4 id="创建索引的几个原则？"><a href="#创建索引的几个原则？" class="headerlink" title="创建索引的几个原则？"></a>创建索引的几个原则？</h4><p>1.尽量给容易辨识且频繁查询的字段加索引，少给频繁修改的字段加索引。</p><p>2.索引不是越多越好，聚合索引性能应优于创建多个单列索引。</p><p>3.避免给单个字段添加多个索引。</p><h4 id="从根上理解MYSQL"><a href="#从根上理解MYSQL" class="headerlink" title="从根上理解MYSQL"></a>从根上理解MYSQL</h4><a class="site-card" href="https://www.processon.com/view/link/6295daeaf346fb41eec1d632"><div class="img"><img src="https://zhangzhibang.github.io/picx-images-hosting/image.4jo66mq4yh.webp"/></div><div class="info"><span class="title">从根上理解MYSQL</span><span class="desc">从根上理解MYSQL</span></div></a>]]></content>
+    
+    
+    <summary type="html">MySQL 相关知识讲解</summary>
+    
+    
+    
+    <category term="开发学习" scheme="https://gugubang.top/categories/%E5%BC%80%E5%8F%91%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="MySQL" scheme="https://gugubang.top/tags/MySQL/"/>
+    
+  </entry>
   
   <entry>
     <title>Spring容器初始化流程以及三级缓存原理</title>
