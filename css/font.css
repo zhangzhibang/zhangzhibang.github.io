@@ -31,6 +31,13 @@ a.categoryBar-list-link,
 h1.post-title {
     font-family:arzhu!important
 }
+
+/*代码框 字体设置*/
+#article-container pre {
+    padding: 1px 3px;
+    margin: 0 3px;
+    font-family: 'Fira Code', monospace !important;
+}
 /**
 页脚颜色
  */
